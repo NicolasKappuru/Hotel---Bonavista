@@ -162,6 +162,8 @@ class ReservaInsertView(QWidget):
                 num_hab
             ))
 
+            self.ocupar_habitacion(cur, num_hab)
+
             conn.commit()
             QMessageBox.information(self, "OK", "Reserva creada correctamente.")
 
@@ -194,3 +196,13 @@ class ReservaInsertView(QWidget):
             cur.execute("""
                 SELECT setval('reserva_reserva_id_seq', %s, true);
             """, (max_id,))
+
+    def ocupar_habitacion(self, cur, num_hab):
+        """
+        Cambia el estado de la habitación a OCUPADA (estado_id = 2)
+        """
+        cur.execute("""
+            UPDATE habitacion
+            SET estado_id = 2
+            WHERE numero_habitacion = %s
+        """, (num_hab,))

@@ -7,9 +7,11 @@ from views.recepcion.cliente_insert_view import ClienteInsertView
 from views.recepcion.cliente_update_view import ClienteUpdateView
 
 from views.recepcion.reserva_insert_view import ReservaInsertView
+from views.recepcion.reserva_update_view import ReservaUpdateView
 
 from views.recepcion.reserva_list_view import ReservaListView
 from views.recepcion.habitacion_dispo_view import HabitacionDispoView
+
 
 
 
@@ -30,6 +32,7 @@ class MainWindow(QMainWindow):
         self.vista_cliente_update = ClienteUpdateView(self)
 
         self.vista_reserva_insert = ReservaInsertView(self)
+        self.vista_reserva_update = ReservaUpdateView(self)
 
         self.vista_reservas = ReservaListView(self)
         self.vista_disponibilidad = HabitacionDispoView(self)
@@ -40,6 +43,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.vista_cliente_update)
 
         self.stack.addWidget(self.vista_reserva_insert)
+        self.stack.addWidget(self.vista_reserva_update)
 
         self.stack.addWidget(self.vista_reservas)        
         self.stack.addWidget(self.vista_disponibilidad) 
@@ -58,6 +62,9 @@ class MainWindow(QMainWindow):
 
     def ir_reserva_insertar(self):
         self.stack.setCurrentWidget(self.vista_reserva_insert)
+
+    def ir_reserva_actualizar(self): 
+        self.stack.setCurrentWidget(self.vista_reserva_update)
 
     def ir_reservas(self):
         self.stack.setCurrentWidget(self.vista_reservas)

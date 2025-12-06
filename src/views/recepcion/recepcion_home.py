@@ -12,12 +12,14 @@ class RecepcionHome(QWidget):
         btn_clientes_insertar = QPushButton("Ingresar Clientes / Huéspedes")
         btn_clientes_insertar.clicked.connect(self.main.ir_cliente_insertar)
 
-
         btn_clientes_actualizar = QPushButton("Actualizar Clientes / Huéspedes")
         btn_clientes_actualizar.clicked.connect(self.main.ir_cliente_actualizar)
 
         btn_reservas_insertar = QPushButton("Ingresar Reserva")
         btn_reservas_insertar.clicked.connect(self.main.ir_reserva_insertar)
+
+        btn_reservas_actualizar = QPushButton("Actualizar Reserva")
+        btn_reservas_actualizar.clicked.connect(self.main.ir_reserva_actualizar)
 
         btn_reservas = QPushButton("Consultar Reservas")
         btn_reservas.clicked.connect(self.main.ir_reservas)
@@ -31,6 +33,7 @@ class RecepcionHome(QWidget):
         layout.addWidget(btn_clientes_insertar)
         layout.addWidget(btn_clientes_actualizar)
         layout.addWidget(btn_reservas_insertar)
+        layout.addWidget(btn_reservas_actualizar)
         layout.addWidget(btn_reservas)
         layout.addWidget(btn_habitaciones)
         layout.addStretch()
