@@ -22,11 +22,11 @@ from views.servicio.servicio_asignar_view import ServicioAsignarView
 from views.administracion.administracion_home import AdministracionHome
 from views.administracion.empleado_insert_view import EmpleadoInsertView
 from views.administracion.empleado_update_view import EmpleadoUpdateView
-# from views.administracion.empleado_consultar_view import EmpleadoConsultarView
+from views.administracion.empleado_consultar_view import EmpleadoConsultarView
 from views.administracion.empleado_delete_view import EmpleadoDeleteView
 from views.administracion.servicio_actualizar_view import ServiciosActualizarView
-# from views.administracion.habitaciones_mas_reservadas_view import HabitacionesMasReservadasView
-# from views.administracion.servicios_mas_solicitados_view import ServiciosMasSolicitadosView
+from views.administracion.habitaciones_mas_reservadas_view import HabitacionesMasReservadasView
+from views.administracion.servicios_mas_solicitados_view import ServiciosMasSolicitadosView
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -65,11 +65,11 @@ class MainWindow(QMainWindow):
         self.vista_admin_home = AdministracionHome(self)
         self.vista_empleado_insert = EmpleadoInsertView(self)
         self.vista_empleado_update = EmpleadoUpdateView(self)
-        # self.vista_empleado_consultar = EmpleadoConsultarView(self)
+        self.vista_empleado_consultar = EmpleadoConsultarView(self)
         self.vista_empleado_eliminar = EmpleadoDeleteView(self)
         self.vista_servicios_actualizar = ServiciosActualizarView(self)
-        # self.vista_habitaciones_mas_reservadas = HabitacionesMasReservadasView(self)
-        # self.vista_servicios_mas_solicitados = ServiciosMasSolicitadosView(self)
+        self.vista_habitaciones_mas_reservadas = HabitacionesMasReservadasView(self)
+        self.vista_servicios_mas_solicitados = ServiciosMasSolicitadosView(self)
 
         # Agregar al stack
         self.stack.addWidget(self.vista_recepcion_home)
@@ -90,16 +90,16 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.vista_admin_home)
         self.stack.addWidget(self.vista_empleado_insert)
         self.stack.addWidget(self.vista_empleado_update)
-        #self.stack.addWidget(self.vista_empleado_consultar)
+        self.stack.addWidget(self.vista_empleado_consultar)
         self.stack.addWidget(self.vista_empleado_eliminar)
         self.stack.addWidget(self.vista_servicios_actualizar)
-        #self.stack.addWidget(self.vista_habitaciones_mas_reservadas)
-        #self.stack.addWidget(self.vista_servicios_mas_solicitados)
+        self.stack.addWidget(self.vista_habitaciones_mas_reservadas)
+        self.stack.addWidget(self.vista_servicios_mas_solicitados)
 
         # Arrancamos ahora en SERVICIO
-        self.ir_inicio_recepcion()
+        #self.ir_inicio_recepcion()
         #self.ir_inicio_servicio()
-        #self.ir_inicio_administracion()
+        self.ir_inicio_administracion()
 
     # ===========================
     #      NAVEGACIÓN RECEPCIÓN
@@ -163,18 +163,18 @@ class MainWindow(QMainWindow):
    
     def ir_empleado_actualizar(self):
         self.stack.setCurrentWidget(self.vista_empleado_update)
-    """
+   
     def ir_empleado_consultar(self):
         self.stack.setCurrentWidget(self.vista_empleado_consultar)
-    """
+    
     def ir_empleado_eliminar(self):
         self.stack.setCurrentWidget(self.vista_empleado_eliminar)
     
     def ir_servicios_actualizar(self):
         self.stack.setCurrentWidget(self.vista_servicios_actualizar)
-    """
+    
     def ir_habitaciones_mas_reservadas(self):
         self.stack.setCurrentWidget(self.vista_habitaciones_mas_reservadas)
 
     def ir_servicios_mas_solicitados(self):
-        self.stack.setCurrentWidget(self.vista_servicios_mas_solicitados)"""
+        self.stack.setCurrentWidget(self.vista_servicios_mas_solicitados)
