@@ -1,5 +1,5 @@
 # views/recepcion/habitacion_dispo_view.py
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QTableWidget, QTableWidgetItem
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem
 from db import get_conn
 
 class HabitacionDispoView(QWidget):
@@ -7,25 +7,35 @@ class HabitacionDispoView(QWidget):
         super().__init__()
         self.main = main_window
 
+        # Tabla
         self.tabla = QTableWidget()
-        btn = QPushButton("Ver habitaciones libres")
-        btn.clicked.connect(self.cargar)
 
         layout = QVBoxLayout()
-        layout.addWidget(btn)
         layout.addWidget(self.tabla)
         self.setLayout(layout)
+
+        # Se carga automáticamente sin botón
+        self.cargar()
 
     def cargar(self):
         conn = get_conn()
         cur = conn.cursor()
+
         cur.execute("""
-            SELECT numero_habitacion, nombre_estado
-            FROM habitacion NATURAL JOIN estado
-            WHERE LOWER(nombre_estado) = 'libre'
+            SELECT 
+                h.numero_habitacion,
+                c.nombre_categoria,
+                c.costo_categoria,
+                e.nombre_estado
+            FROM habitacion h
+            JOIN categoria c ON h.categoria_id = c.categoria_id
+            JOIN estado e ON h.estado_id = e.estado_id
+            WHERE h.estado_id = 1
+            ORDER BY h.numero_habitacion;
         """)
+
         rows = cur.fetchall()
-        cols = [d[0] for d in cur.description]
+        cols = [desc[0] for desc in cur.description]
         conn.close()
 
         self.tabla.setColumnCount(len(cols))

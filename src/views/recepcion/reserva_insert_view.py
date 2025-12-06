@@ -174,29 +174,41 @@ class ReservaInsertView(QWidget):
         finally:
             conn.close()
 
+    # ==========================================================
+    #       SINCRONIZAR SECUENCIA (CÓDIGO CORREGIDO)
+    # ==========================================================
     def sincronizar_secuencia_reserva(self, cur):
         """
         Ajusta automáticamente la secuencia del IDENTITY de reserva
-        si está desfasada, evitando errores de llave duplicada.
+        evitando que lance errores cuando la secuencia está en None.
         """
+
         # 1. Obtener el ID máximo actual
         cur.execute("SELECT COALESCE(MAX(reserva_id), 0) FROM reserva;")
         max_id = cur.fetchone()[0]
 
-        # 2. Obtener el valor actual de la secuencia
+        # 2. Obtener valor actual de la secuencia
         cur.execute("""
-            SELECT last_value
+            SELECT COALESCE(last_value, 0)
             FROM pg_sequences
-            WHERE schemaname='public' AND sequencename='reserva_reserva_id_seq';
+            WHERE schemaname='public'
+            AND sequencename='reserva_reserva_id_seq';
         """)
-        seq_value = cur.fetchone()[0]
 
-        # 3. Si la secuencia está atrasada, actualizarla
+        resultado = cur.fetchone()
+
+        # Si no existe secuencia o last_value viene como None → manejar
+        seq_value = resultado[0] if resultado else 0
+
+        # 3. Actualizar solo si está retrasada
         if seq_value < max_id:
             cur.execute("""
                 SELECT setval('reserva_reserva_id_seq', %s, true);
             """, (max_id,))
 
+    # ==========================================================
+    #                OCUPAR HABITACIÓN
+    # ==========================================================
     def ocupar_habitacion(self, cur, num_hab):
         """
         Cambia el estado de la habitación a OCUPADA (estado_id = 2)
