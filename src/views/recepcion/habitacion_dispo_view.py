@@ -1,5 +1,5 @@
 # views/recepcion/habitacion_dispo_view.py
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QTableWidget, QTableWidgetItem
 from db import get_conn
 
 class HabitacionDispoView(QWidget):
@@ -10,7 +10,15 @@ class HabitacionDispoView(QWidget):
         # Tabla
         self.tabla = QTableWidget()
 
+        btn_back = QPushButton("Volver")
+        btn_back.clicked.connect(self.main.ir_inicio_recepcion)
+        
+        h_top = QHBoxLayout()
+        h_top.addStretch()         # para empujar el botón a la derecha o centrar si quieres
+        h_top.addWidget(btn_back)
+
         layout = QVBoxLayout()
+        layout.addLayout(h_top)
         layout.addWidget(self.tabla)
         self.setLayout(layout)
 
