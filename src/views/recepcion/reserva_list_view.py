@@ -23,7 +23,7 @@ class ReservaListView(QWidget):
         btn_buscar.clicked.connect(self.cargar)
 
         btn_back = QPushButton("Volver")
-        btn_back.clicked.connect(self.main.ir_inicio_recepcion)
+        btn_back.clicked.connect(self.main.ir_volver_home)
 
         # --- Parte superior ---
         h_top = QHBoxLayout()

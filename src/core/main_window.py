@@ -1,5 +1,8 @@
 # core/main_window.py
 from PySide6.QtWidgets import QMainWindow, QStackedWidget
+from db import get_conn
+from PySide6.QtWidgets import QMessageBox
+from views.login_view import LoginView
 
 # --- Recepción ---
 from views.recepcion.recepcion_home import RecepcionHome
@@ -37,6 +40,10 @@ class MainWindow(QMainWindow):
 
         self.stack = QStackedWidget()
         self.setCentralWidget(self.stack)
+
+        self.vista_login = LoginView(self)
+        self.stack.addWidget(self.vista_login)
+        self.stack.setCurrentWidget(self.vista_login)   # <-- ARRANCA AQUÍ
 
         # ===========================
         #        RECEPCIÓN
@@ -96,10 +103,6 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.vista_habitaciones_mas_reservadas)
         self.stack.addWidget(self.vista_servicios_mas_solicitados)
 
-        # Arrancamos ahora en SERVICIO
-        #self.ir_inicio_recepcion()
-        #self.ir_inicio_servicio()
-        self.ir_inicio_administracion()
 
     # ===========================
     #      NAVEGACIÓN RECEPCIÓN
@@ -178,3 +181,84 @@ class MainWindow(QMainWindow):
 
     def ir_servicios_mas_solicitados(self):
         self.stack.setCurrentWidget(self.vista_servicios_mas_solicitados)
+
+
+    def login_usuario(self, documento):
+        conn = get_conn()
+        cur = conn.cursor()
+
+        try:
+            cur.execute("""
+                SELECT cargo
+                FROM empleado
+                WHERE numero_documento = %s;
+            """, (documento,))
+
+            row = cur.fetchone()
+
+            if not row:
+                QMessageBox.critical(
+                    self, "Acceso Denegado",
+                    "No existe empleado con ese documento."
+                )
+                return
+
+            cargo = row[0].lower()
+
+            # ====================
+            # GUARDAR SESIÓN
+            # ====================
+            self.usuario_actual = {
+                "documento": documento,
+                "cargo": cargo
+            }
+
+            # =====================
+            #    REDIRECCIÓN
+            # =====================
+            if cargo == "recepcionista":
+                self.ir_inicio_recepcion()
+
+            elif cargo == "personal servicio":
+                self.ir_inicio_servicio()
+
+            elif cargo == "administrador":
+                self.ir_inicio_administracion()
+
+            else:
+                QMessageBox.critical(
+                    self, "Acceso Denegado",
+                    f"El cargo '{cargo}' no tiene permisos."
+                )
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", str(e))
+        finally:
+            conn.close()
+
+
+
+    def ir_login(self):
+        self.usuario_actual = None
+        self.stack.setCurrentWidget(self.vista_login)
+
+
+
+    def ir_volver_home(self):
+        """Regresa al Home dependiendo del rol logueado."""
+        if not hasattr(self, "usuario_actual") or self.usuario_actual is None:
+            return self.ir_login()
+
+        cargo = self.usuario_actual["cargo"]
+
+        if cargo == "recepcionista":
+            self.ir_inicio_recepcion()
+
+        elif cargo == "personal servicio":
+            self.ir_inicio_servicio()
+
+        elif cargo == "administrador":
+            self.ir_inicio_administracion()
+
+        else:
+            self.ir_login()

@@ -33,6 +33,10 @@ class AdministracionHome(QWidget):
         btn_servicios_solicitados = QPushButton("Servicios Más Solicitados")
         btn_servicios_solicitados.clicked.connect(self.main.ir_servicios_mas_solicitados)
 
+        btn_logout = QPushButton("Cerrar sesión")
+        btn_logout.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
+        btn_logout.clicked.connect(self.main.ir_login)
+        
         layout = QVBoxLayout()
         layout.addWidget(titulo)
         layout.addSpacing(20)
@@ -44,7 +48,7 @@ class AdministracionHome(QWidget):
         layout.addWidget(btn_actualizar_servicios)
         layout.addWidget(btn_hab_reservadas)
         layout.addWidget(btn_servicios_solicitados)
-        
         layout.addStretch()
+        layout.addWidget(btn_logout)
 
         self.setLayout(layout)

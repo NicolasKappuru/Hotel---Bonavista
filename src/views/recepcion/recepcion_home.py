@@ -30,6 +30,10 @@ class RecepcionHome(QWidget):
         btn_habitaciones = QPushButton("Disponibilidad de Habitaciones")
         btn_habitaciones.clicked.connect(self.main.ir_disponibilidad)
 
+        btn_logout = QPushButton("Cerrar sesión")
+        btn_logout.setStyleSheet("background-color: #c0392b; color: white; font-weight: bold;")
+        btn_logout.clicked.connect(self.main.ir_login)
+
         layout = QVBoxLayout()
         layout.addWidget(titulo)
         layout.addSpacing(20)
@@ -41,5 +45,6 @@ class RecepcionHome(QWidget):
         layout.addWidget(btn_reservas)
         layout.addWidget(btn_habitaciones)
         layout.addStretch()
+        layout.addWidget(btn_logout)
 
         self.setLayout(layout)

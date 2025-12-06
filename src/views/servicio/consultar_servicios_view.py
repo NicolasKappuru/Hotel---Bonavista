@@ -21,7 +21,7 @@ class ServiciosConsultarView(QWidget):
         btn_recargar.clicked.connect(self.cargar_datos)
 
         btn_back = QPushButton("Volver")
-        btn_back.clicked.connect(self.main.ir_inicio_servicio)
+        btn_back.clicked.connect(self.main.ir_volver_home)
 
         botones = QHBoxLayout()
         botones.addWidget(btn_recargar)
