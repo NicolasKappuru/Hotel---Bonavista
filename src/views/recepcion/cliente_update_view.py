@@ -1,4 +1,3 @@
-# views/recepcion/cliente_update_view.py
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QFormLayout, QLineEdit, QLabel,
     QPushButton, QCheckBox, QMessageBox, QComboBox, QDateEdit
@@ -9,13 +8,7 @@ from datetime import datetime
 from db import get_conn
 
 class ClienteUpdateView(QWidget):
-    """
-    Vista exclusiva para BUSCAR y ACTUALIZAR una persona (persona + cliente + huesped).
-    - Buscar por número de documento
-    - Cargar campos en el formulario
-    - Editar y pulsar Actualizar
-    - Tipo_documento y numero_documento se bloquean (no pueden cambiar)
-    """
+
     def __init__(self, main_window=None):
         super().__init__(main_window)
         self.main = main_window
