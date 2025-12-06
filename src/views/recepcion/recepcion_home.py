@@ -15,6 +15,9 @@ class RecepcionHome(QWidget):
         btn_clientes_actualizar = QPushButton("Actualizar Clientes / Huéspedes")
         btn_clientes_actualizar.clicked.connect(self.main.ir_cliente_actualizar)
 
+        btn_clientes_consultar = QPushButton("Consultar Clientes / Huéspedes")
+        btn_clientes_consultar.clicked.connect(self.main.ir_cliente_consultar)
+
         btn_reservas_insertar = QPushButton("Ingresar Reserva")
         btn_reservas_insertar.clicked.connect(self.main.ir_reserva_insertar)
 
@@ -32,6 +35,7 @@ class RecepcionHome(QWidget):
         layout.addSpacing(20)
         layout.addWidget(btn_clientes_insertar)
         layout.addWidget(btn_clientes_actualizar)
+        layout.addWidget(btn_clientes_consultar)
         layout.addWidget(btn_reservas_insertar)
         layout.addWidget(btn_reservas_actualizar)
         layout.addWidget(btn_reservas)

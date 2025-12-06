@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QMainWindow, QStackedWidget
 from views.recepcion.recepcion_home import RecepcionHome
 from views.recepcion.cliente_insert_view import ClienteInsertView
 from views.recepcion.cliente_update_view import ClienteUpdateView
+from views.recepcion.cliente_consult_view import ClienteHuespedView
 from views.recepcion.reserva_insert_view import ReservaInsertView
 from views.recepcion.reserva_update_view import ReservaUpdateView
 from views.recepcion.reserva_list_view import ReservaListView
@@ -43,6 +44,7 @@ class MainWindow(QMainWindow):
         self.vista_recepcion_home = RecepcionHome(self)
         self.vista_cliente_insert = ClienteInsertView(self)
         self.vista_cliente_update = ClienteUpdateView(self)
+        self.vista_cliente_consult = ClienteHuespedView(self)
         self.vista_reserva_insert = ReservaInsertView(self)
         self.vista_reserva_update = ReservaUpdateView(self)
         self.vista_reservas = ReservaListView(self)
@@ -73,6 +75,7 @@ class MainWindow(QMainWindow):
         self.stack.addWidget(self.vista_recepcion_home)
         self.stack.addWidget(self.vista_cliente_insert)
         self.stack.addWidget(self.vista_cliente_update)
+        self.stack.addWidget(self.vista_cliente_consult)
         self.stack.addWidget(self.vista_reserva_insert)
         self.stack.addWidget(self.vista_reserva_update)
         self.stack.addWidget(self.vista_reservas)
@@ -110,6 +113,9 @@ class MainWindow(QMainWindow):
 
     def ir_cliente_actualizar(self):
         self.stack.setCurrentWidget(self.vista_cliente_update)
+
+    def ir_cliente_consultar(self):
+        self.stack.setCurrentWidget(self.vista_cliente_consult)
 
     def ir_reserva_insertar(self):
         self.stack.setCurrentWidget(self.vista_reserva_insert)
