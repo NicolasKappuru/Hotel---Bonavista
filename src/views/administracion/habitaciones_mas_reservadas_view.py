@@ -28,8 +28,6 @@ class HabitacionesMasReservadasView(QWidget):
         layout.addWidget(self.tabla)
         self.setLayout(layout)
 
-        # Cargar automáticamente
-        self.cargar()
 
 
     def cargar(self):

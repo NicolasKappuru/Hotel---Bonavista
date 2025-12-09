@@ -34,7 +34,7 @@ class ServiciosConsultarView(QWidget):
 
         self.setLayout(layout)
 
-        self.cargar_datos()
+        
 
     def cargar_datos(self):
         conn = get_conn()

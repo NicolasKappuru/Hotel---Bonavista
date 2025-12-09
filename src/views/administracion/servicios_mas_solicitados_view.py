@@ -29,7 +29,6 @@ class ServiciosMasSolicitadosView(QWidget):
         self.setLayout(layout)
 
         # carga automática
-        self.cargar()
 
 
     def cargar(self):

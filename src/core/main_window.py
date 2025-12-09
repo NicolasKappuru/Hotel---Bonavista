@@ -130,6 +130,7 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.vista_reservas)
 
     def ir_disponibilidad(self):
+        self.vista_disponibilidad.cargar()
         self.stack.setCurrentWidget(self.vista_disponibilidad)
 
     # ===========================
@@ -146,6 +147,7 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.vista_habitacion_actualizar)
 
     def ir_servicios_consultar(self):
+        self.vista_servicios_consultar.cargar_datos()
         self.stack.setCurrentWidget(self.vista_servicios_consultar)
 
     def ir_servicio_asignar(self):
@@ -177,9 +179,11 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentWidget(self.vista_servicios_actualizar)
     
     def ir_habitaciones_mas_reservadas(self):
+        self.vista_habitaciones_mas_reservadas.cargar()
         self.stack.setCurrentWidget(self.vista_habitaciones_mas_reservadas)
 
     def ir_servicios_mas_solicitados(self):
+        self.vista_servicios_mas_solicitados.cargar()
         self.stack.setCurrentWidget(self.vista_servicios_mas_solicitados)
 
 

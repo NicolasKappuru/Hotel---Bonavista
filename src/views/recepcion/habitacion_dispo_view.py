@@ -22,8 +22,6 @@ class HabitacionDispoView(QWidget):
         layout.addWidget(self.tabla)
         self.setLayout(layout)
 
-        # Se carga automáticamente sin botón
-        self.cargar()
 
     def cargar(self):
         conn = get_conn()
